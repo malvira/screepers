@@ -2,8 +2,13 @@
 /* assume everything is a workerbee for now */
 /* figure out roles / types later */
 
+/*XXX todo - multiroom */
+var ROOM='W4N42'
+
 var commanderBasic = {
     run: function() {
+        var thisRoom = Game.rooms[ROOM];
+        
         console.log("start commanderBasic");
         var m = 0; 
         var n = 0;
@@ -29,8 +34,8 @@ var commanderBasic = {
             var c = Game.creeps[i];
 
 // XXX figure out a way to not recompute this for each creep            
-        var sources = c.room.find(FIND_SOURCES);
-        var targets = c.room.find(FIND_STRUCTURES, {
+        var sources = thisRoom.find(FIND_SOURCES);
+        var targets = thisRoom.find(FIND_STRUCTURES, {
                         filter: (structure) => {
                             return (structure.structureType == STRUCTURE_EXTENSION || 
                                     structure.structureType == STRUCTURE_SPAWN) &&
@@ -38,7 +43,7 @@ var commanderBasic = {
                         }
                     });
         
-        var sites = c.room.find(FIND_CONSTRUCTION_SITES);
+        var sites = thisRoom.find(FIND_CONSTRUCTION_SITES);
                 
             // assign task
             if (c.carry[RESOURCE_ENERGY] == 0 && c.memory.task != 'harvest') {
@@ -48,7 +53,7 @@ var commanderBasic = {
             if (c.carry[RESOURCE_ENERGY] == c.carryCapacity && c.memory.task == 'harvest') {
                 // fill storage then start upgrading
                 
-                if (c.room.controller.ticksToDowngrade < 4000) {
+                if (thisRoom.controller.ticksToDowngrade < 4000) {
                     k++;
                     c.memory.task = 'upgrade';
                     break;
@@ -86,7 +91,7 @@ var commanderBasic = {
                     break;
                 case 'upgrade':
                     if(c.upgradeController(c.room.controller) == ERR_NOT_IN_RANGE) {
-                        c.moveTo(c.room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
+                        c.moveTo(thisRoom.controller, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
                     break;
                     // this is hard b/c a source might be unreachable or not safe.
