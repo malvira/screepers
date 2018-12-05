@@ -53,8 +53,8 @@ var spawnerBasic = {
         });
 
         // the secret algorithm. 
-        var workersWanted = 4*(sources.length - 1) + 
-                            2*(sites.length - 1) + 
+        var workersWanted = 5 * sources.length + 
+                            2 * sites.length   + 
                             2;
 
     
