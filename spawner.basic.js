@@ -20,13 +20,13 @@ var spawnerBasic = {
             console.log("spawner: " + s.name)
             
             switch(s.room.memory.directive) {
-                case 'grow':
-                    console.log("grow room directive")
-                    this.grow(s);
-                    break;
-                default:
-                    console.log("default room directive")
-                    this.grow(s);
+            case 'grow':
+                console.log("grow room directive")
+                this.grow(s);
+                break;
+            default:
+                console.log("default room directive")
+                this.grow(s);
             }
         }
         
@@ -51,20 +51,20 @@ var spawnerBasic = {
         var c = r.find(FIND_CREEPS, {
             filter: (c) => { return (c.my)}
         });
-
+	
         // the secret algorithm. 
-        var workersWanted = 5 * sources.length + 
-                            2 * sites.length   + 
-                            2;
-
-    
+        var workersWanted = 3 * sources.length + 
+            0 * sites.length   + 
+            2;
+	
+	
         // XXX todo, no sense of what type of creeps are in the room.
+	var workername = 'workerbee-' + Game.time;
         if (c.length - 1 < workersWanted) {
-        console.log("spawning workerbee");
-        s.spawnCreep([WORK, CARRY, MOVE], 'workerbee-'+Game.time);
-            
+            console.log("spawning workerbee");
+            s.spawnCreep([WORK, CARRY, MOVE], workername);
         }
-        
+      
     }
     
 }

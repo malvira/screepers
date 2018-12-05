@@ -2,15 +2,9 @@
 var strategy = require('strategy.basic');
 var spawner = require('spawner.basic');
 var commander = require('commander.basic');
+var utils = require('utils');
 
 module.exports.loop = function () {
-
-   for(var name in Memory.creeps) {
-        if(!Game.creeps[name]) {
-            delete Memory.creeps[name];
-            console.log('Clearing non-existing creep memory:', name);
-        }
-    }
 
     // execute strategic things 
     strategy.run();
@@ -21,6 +15,6 @@ module.exports.loop = function () {
     // command the creeps
     commander.run();
     
-    console.log("finished loop " + Game.time)
+    console.log("finished loop " + Game.time);
 
 }
