@@ -5,12 +5,10 @@ var ROOM = 'W2N5';
 var assignerBasic = {
     worker: function(c) {
 
-	//XXX todo: hardcoded for now.
-	c.memory.room_assignment = ROOM;
-	var r = Game.rooms[c.memory.room_assignment];
-
 	switch(c.memory.task) {
 	case 'free':
+
+	    var r = Game.rooms[c.memory.room_assignment];
 
 	    var sources = r.find(FIND_SOURCES);
 	    	    
@@ -24,6 +22,9 @@ var assignerBasic = {
 	    
 	case 'full':
 
+	    // hardcode this room for now
+	    var r = Game.rooms[ROOM];
+	    
 	    console.log(r.controller.ticksToDowngrade);
 	    
 	    if (r.controller.ticksToDowngrade < 2000) {

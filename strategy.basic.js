@@ -7,6 +7,8 @@
  * mod.thing == 'a thing'; // true
  */
 
+var ROOM = 'W3N5';
+
 var strategyBasic = {
     run: function () {
         console.log("run strategy Basic");
@@ -25,7 +27,12 @@ var strategyBasic = {
         }
         
         console.log("done strategy Basic");
+    },
+
+    assignRoom: function(c) {
+	c.memory.room_assignment = ROOM;
     }
+    
 };
 
 module.exports = strategyBasic;

@@ -55,7 +55,7 @@ var spawnerBasic = {
         // the secret algorithm. 
         var workersWanted = 0 * sources.length + 
             0 * sites.length   + 
-            4;
+            8;
 	
 	
         // XXX todo, no sense of what type of creeps are in the room.

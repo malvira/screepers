@@ -2,7 +2,9 @@
 /* assume everything is a workerbee for now */
 /* figure out roles / types later */
 
+// figure out a way to set these in one place. perhaps with Memory
 var assign = require('assigner.basic');
+var strategy = require('strategy.basic');
 
 var commanderBasic = {
     run: function() {
@@ -18,6 +20,16 @@ var commanderBasic = {
 		console.log('Clearing non-existing creep memory:', name);
 		break;
             }
+
+	    if(!c.memory.room_assignment) {
+		strategy.assignRoom(c);
+	    }
+
+	    if(c.room.name != c.memory.room_assignment && (c.memory.task == 'free' || c.memory.task == 'traveling')) {
+		console.log("need to travel " + c.memory.room_assignment);
+		c.memory.task = 'traveling';
+		c.moveTo(new RoomPosition(25, 25, c.memory.room_assignment), {reusePath: 1500});
+	    }
 	    
             // execute the tasks
 	    var target = Game.getObjectById(c.memory.target);
@@ -65,6 +77,14 @@ var commanderBasic = {
 	    case 'free':
 	    case 'full':
 		assign.worker(c);
+		break;
+	    case 'traveling':
+		if(c.room.name == c.memory.room_assignment) {
+		    console.log("in room!");
+		    c.moveTo(25, 25);
+		    c.memory.task = 'free';
+		    c.memory.target = '';
+		}
 		break;
             default:
 		c.memory.task = 'free';
