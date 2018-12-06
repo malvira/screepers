@@ -27,7 +27,7 @@ var assignerBasic = {
 	    
 	    console.log(r.controller.ticksToDowngrade);
 	    
-	    if (r.controller.ticksToDowngrade < 2000) {
+	    if (r.controller.ticksToDowngrade < 4000) {
 		c.memory.task = 'upgrade';
 		c.memory.target = r.controller.id;
 		break;
