@@ -70,7 +70,7 @@ var commanderBasic = {
 		break;
             case 'harvest':
                 if (c.harvest(Game.getObjectById(c.memory.target)) == ERR_NOT_IN_RANGE) {
-                    c.moveTo(Game.getObjectById(c.memory.target), {visualizePathStyle: {stroke: '#ffaa00'}});
+                    c.moveTo(Game.getObjectById(c.memory.target), {reusePath: 1500, visualizePathStyle: {stroke: '#ffaa00'}});
                 }
 		if (c.carry[RESOURCE_ENERGY] == c.carryCapacity) { c.memory.task = 'full'; c.memory.target = ''; }
                 break;
