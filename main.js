@@ -10,6 +10,7 @@ module.exports.loop = function () {
     strategy.run();
 
     // manage spawning
+    
     spawner.run();
 
     // command the creeps

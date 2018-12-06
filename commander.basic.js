@@ -23,25 +23,35 @@ var commanderBasic = {
 	    var target = Game.getObjectById(c.memory.target);
 
             switch (c.memory.task) {
-		// XXX build and empty cases are bugged.
-		// these cases all fall through
 	    case 'upgrade':
-		var err = c.upgradeController(target)
             case 'build':
-		var err = c.build(target)
             case 'store':
-		var err = c.transfer(target, RESOURCE_ENERGY)
-		
+		var err;
+		switch (c.memory.task) {
+		case 'upgrade':
+		    err = c.upgradeController(target);
+		    break;
+		case 'build':
+		    err = c.build(target);
+		    break;
+		case 'store':
+		    err = c.transfer(target, RESOURCE_ENERGY);
+		    break;
+		}
+
 		switch (err) {
 		case ERR_NOT_IN_RANGE:
-		    c.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+		    c.moveTo(target, {reusePath: 1500, visualizePathStyle: {stroke: '#ffffff'}});
 		    break;
 		case OK:
 		    break;
 		case ERR_NOT_ENOUGH_RESOURCES:
+		    c.memory.task = 'free';
+		    c.memory.task = '';
+		    break;
 		case ERR_FULL:
 		default:
-		    c.memory.task = 'free';
+		    c.memory.task = 'full';
 		    c.memory.target = '';
 		    break;
 		}

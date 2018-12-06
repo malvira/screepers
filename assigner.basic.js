@@ -40,13 +40,15 @@ var assignerBasic = {
 		}
             });
 
+	    c.memory.task = 'store';
+	    
 	    // if targets is empty then use building sites
 	    if (targets.length == 0) {
 		targets = r.find(FIND_CONSTRUCTION_SITES);
+		c.memory.task = 'build';
 	    }
 		
 	    if (targets.length != 0) {
-		c.memory.task = 'build';
 		c.memory.target = targets[Game.time % targets.length].id;
 		console.log("assigning " + c.name + " to build " + c.memory.target);
 	    } else {

@@ -53,14 +53,14 @@ var spawnerBasic = {
         });
 	
         // the secret algorithm. 
-        var workersWanted = 3 * sources.length + 
+        var workersWanted = 0 * sources.length + 
             0 * sites.length   + 
-            2;
+            4;
 	
 	
         // XXX todo, no sense of what type of creeps are in the room.
 	var workername = 'workerbee-' + Game.time;
-        if (c.length - 1 < workersWanted) {
+        if (c.length < workersWanted) {
             console.log("spawning workerbee");
             s.spawnCreep([WORK, CARRY, MOVE], workername);
         }
