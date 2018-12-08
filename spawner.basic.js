@@ -47,20 +47,10 @@ var spawnerBasic = {
         var sources = r.find(FIND_SOURCES);
         var sites = r.find(FIND_CONSTRUCTION_SITES);
         
-        //get my creeps in this room
-        var c = r.find(FIND_CREEPS, {
-            filter: (c) => { return (c.my)}
-        });
-	
-        // the secret algorithm. 
-        var workersWanted = 0 * sources.length + 
-            0 * sites.length   + 
-            8;
-	
 	
         // XXX todo, no sense of what type of creeps are in the room.
 	var workername = 'workerbee-' + Game.time;
-        if (c.length < workersWanted) {
+        if (Object.keys(Game.creeps).length < Memory.workersWanted) {
             console.log("spawning workerbee");
             s.spawnCreep([WORK, CARRY, MOVE], workername);
         }

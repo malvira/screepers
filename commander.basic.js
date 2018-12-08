@@ -6,6 +6,8 @@
 var assign = require('assigner.basic');
 var strategy = require('strategy.basic');
 
+var FORCE_ROOM_ASSIGNMENT = false;
+
 var commanderBasic = {
     run: function() {
 
@@ -21,14 +23,14 @@ var commanderBasic = {
 		break;
             }
 
-	    if(!c.memory.room_assignment) {
+	    if(!c.memory.room_assignment || FORCE_ROOM_ASSIGNMENT) {
 		strategy.assignRoom(c);
 	    }
 
 	    if(c.room.name != c.memory.room_assignment && (c.memory.task == 'free' || c.memory.task == 'traveling')) {
-		console.log("need to travel " + c.memory.room_assignment);
+		console.log(c.name, "need to travel ", c.memory.room_assignment);
 		c.memory.task = 'traveling';
-		c.moveTo(new RoomPosition(25, 25, c.memory.room_assignment), {reusePath: 1500});
+		c.moveTo(new RoomPosition(25, 25, c.memory.room_assignment), {reusePath: 50});
 	    }
 	    
             // execute the tasks
@@ -53,7 +55,7 @@ var commanderBasic = {
 
 		switch (err) {
 		case ERR_NOT_IN_RANGE:
-		    c.moveTo(target, {reusePath: 1500, visualizePathStyle: {stroke: '#ffffff'}});
+		    c.moveTo(target, {reusePath: 50, visualizePathStyle: {stroke: '#ffffff'}});
 		    break;
 		case OK:
 		    break;
@@ -70,7 +72,7 @@ var commanderBasic = {
 		break;
             case 'harvest':
                 if (c.harvest(Game.getObjectById(c.memory.target)) == ERR_NOT_IN_RANGE) {
-                    c.moveTo(Game.getObjectById(c.memory.target), {reusePath: 1500, visualizePathStyle: {stroke: '#ffaa00'}});
+                    c.moveTo(Game.getObjectById(c.memory.target), {reusePath: 50, visualizePathStyle: {stroke: '#ffaa00'}});
                 }
 		if (c.carry[RESOURCE_ENERGY] == c.carryCapacity) { c.memory.task = 'full'; c.memory.target = ''; }
                 break;

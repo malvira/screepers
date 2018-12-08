@@ -32,30 +32,34 @@ var assignerBasic = {
 		c.memory.target = r.controller.id;
 		break;
 	    }
-	    
-	    var targets = c.room.find(FIND_STRUCTURES, {
+
+	    // XXX needs to be the creeps home room not harvest room.
+	    var targets = r.find(FIND_STRUCTURES, {
 		filter: (structure) => {
 	    	    return (structure.structureType == STRUCTURE_EXTENSION || 
                             structure.structureType == STRUCTURE_SPAWN) &&
 			structure.energy < structure.energyCapacity;
 		}
             });
-
-	    c.memory.task = 'store';
 	    
-	    // if targets is empty then use building sites
-	    if (targets.length == 0) {
-		targets = r.find(FIND_CONSTRUCTION_SITES);
+	    if (targets.length != 0 ) {
+		c.memory.task = 'store';
+		c.memory.target = targets[0].id;
+		break;
+	    }
+	    
+	    targets = r.find(FIND_CONSTRUCTION_SITES);
+
+	    if (targets.length != 0 ) {
 		c.memory.task = 'build';
+		c.memory.target = targets[0].id;
+		break;
 	    }
-		
-	    if (targets.length != 0) {
-		c.memory.target = targets[Game.time % targets.length].id;
-		console.log("assigning " + c.name + " to build " + c.memory.target);
-	    } else {
-		c.memory.task = 'upgrade';
-		c.memory.target = r.controller.id;
-	    }
+
+	    // else
+	    
+	    c.memory.task = 'upgrade';
+	    c.memory.target = r.controller.id;
 	   
 	    break;
 	}
