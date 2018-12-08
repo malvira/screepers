@@ -1,5 +1,5 @@
 
-var debug = require('debug').print;
+var debug = require('debug').none;
 
 var strategy = require('strategy.basic');
 var spawner = require('spawner.basic');

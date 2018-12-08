@@ -54,7 +54,15 @@ var assignerBasic = {
 
 	    if (targets.length != 0 ) {
 		c.memory.task = 'build';
-		c.memory.target = targets[0].id;
+
+		// find a construction site with the most progress
+		var t = 0;
+		for (const i in targets) {
+		    var new_progress = targets[i].progress / targets[i].progressTotal
+		    var t_progress = targets[t].progress / targets[t].progressTotal
+		    if (new_progress > t_progress) { t = i; }
+		}
+		c.memory.target = targets[t].id;
 		break;
 	    }
 

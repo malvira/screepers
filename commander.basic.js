@@ -26,10 +26,12 @@ var commanderBasic = {
             }
 
 	    if(!c.memory.room_assignment || FORCE_ROOM_ASSIGNMENT) {
+		debug(c.name, "needs room assignment");
 		strategy.assignRoom(c);
 	    }
 
 	    if(c.room.name != c.memory.room_assignment && (c.memory.task == 'free' || c.memory.task == 'traveling')) {
+		debug("to travel?");
 		debug(c.name, "need to travel ", c.memory.room_assignment);
 		c.memory.task = 'traveling';
 		c.moveTo(new RoomPosition(25, 25, c.memory.room_assignment), {reusePath: 50});

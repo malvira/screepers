@@ -70,7 +70,10 @@ var strategyBasic = {
 		c.memory.room_assignment = name
 		break;
 	    }
-	}	    
+	}
+	// if we got to this point, assign to the room the creep is in
+	c.memory.room_assignment = c.room.name;
+	
     }
     
 };
