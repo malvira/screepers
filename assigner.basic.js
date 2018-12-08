@@ -2,13 +2,17 @@
 
 var debug = require('debug').none;
 
-var ROOM = 'W2N5';
+var ROOM = 'W4N42';
+
+var strategy = require('strategy.basic');
 
 var assignerBasic = {
     worker: function(c) {
 
 	switch(c.memory.task) {
 	case 'free':
+
+        strategy.assignRoom(c);
 
 	    var r = Game.rooms[c.memory.room_assignment];
 

@@ -55,6 +55,7 @@ var strategyBasic = {
 
 	for (const i in Game.creeps) {
 	    ra = Game.creeps[i].memory.room_assignment;
+	    if(!Memory.roomList[ra]) { return; }
 	    if(ra) { Memory.roomList[ra].workers++; }
 	}
 	
@@ -68,11 +69,12 @@ var strategyBasic = {
 		debug("assignRoom", name);
 		Memory.roomList[name].workers++;
 		c.memory.room_assignment = name
-		break;
+		return;
 	    }
 	}
 	// if we got to this point, assign to the room the creep is in
 	c.memory.room_assignment = c.room.name;
+	debug("assignRoom", c.room.name);
 	
     }
     
