@@ -2,7 +2,7 @@
 
 var debug = require('debug').none;
 
-var ROOM = 'W4N42';
+var ROOM = 'W2N5';
 
 var strategy = require('strategy.basic');
 
@@ -12,8 +12,9 @@ var assignerBasic = {
 	switch(c.memory.task) {
 	case 'free':
 
-        strategy.assignRoom(c);
-
+            strategy.assignRoom(c);
+	    if(c.room.name != c.memory.room_assignment) { c.memory.task = 'traveling'; return; }
+	    
 	    var r = Game.rooms[c.memory.room_assignment];
 
 	    var sources = r.find(FIND_SOURCES);
