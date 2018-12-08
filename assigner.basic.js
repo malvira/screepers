@@ -1,5 +1,7 @@
 /// XXX todo, creeps will have room assignments. not sure how those get made yet.
 
+var debug = require('debug').none;
+
 var ROOM = 'W2N5';
 
 var assignerBasic = {
@@ -16,7 +18,7 @@ var assignerBasic = {
 	    // load balance between all of the sources in the assigned room
 	    c.memory.target = sources[Game.time % sources.length].id;
 	    
-	    console.log("assigning " + c.name + " to harvest " + c.memory.target);
+	    debug("assigning " + c.name + " to harvest " + c.memory.target);
 	    
 	    break;
 	    
@@ -25,7 +27,7 @@ var assignerBasic = {
 	    // hardcode this room for now
 	    var r = Game.rooms[ROOM];
 	    
-	    console.log(r.controller.ticksToDowngrade);
+	    debug(r.controller.ticksToDowngrade);
 	    
 	    if (r.controller.ticksToDowngrade < 4000) {
 		c.memory.task = 'upgrade';

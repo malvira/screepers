@@ -11,30 +11,32 @@ layer may make expansion decisions.
 
 */
 
+var debug = require('debug').none;
+
 var spawnerBasic = {
     run: function() {
-        console.log('run spawner basic')
+        debug('run spawner basic')
         
         for(const i in Game.spawns) {
             var s = Game.spawns[i];
-            console.log("spawner: " + s.name)
+            debug("spawner: " + s.name)
             
             switch(s.room.memory.directive) {
             case 'grow':
-                console.log("grow room directive")
+                debug("grow room directive")
                 this.grow(s);
                 break;
             default:
-                console.log("default room directive")
+                debug("default room directive")
                 this.grow(s);
             }
         }
         
-        console.log('done spawner basic')
+        debug('done spawner basic')
     },
     
     grow: function(s) {
-        console.log("spawner " + s.name + " is growing room")
+        debug("spawner " + s.name + " is growing room")
         
         // to grow a room we need to pump energy into the controller
         // and fully utilize our resources e.g. energy harvest etc.
@@ -51,7 +53,7 @@ var spawnerBasic = {
         // XXX todo, no sense of what type of creeps are in the room.
 	var workername = 'workerbee-' + Game.time;
         if (Object.keys(Game.creeps).length < Memory.workersWanted) {
-            console.log("spawning workerbee");
+            debug("spawning workerbee");
             s.spawnCreep([WORK, CARRY, MOVE], workername);
         }
       

@@ -7,16 +7,18 @@
  * mod.thing == 'a thing'; // true
  */
 
+var debug = require('debug').none;
+
 var strategyBasic = {
     run: function () {
-        console.log("run strategy Basic");
+        debug("run strategy Basic");
         
         // keep track of our rooms 
         // set default directive for new rooms.
         // don't worry about optimization for now.
         
         for (const i in Game.rooms) {
-            console.log("checking " + Game.rooms[i].name);
+            debug("checking " + Game.rooms[i].name);
             
             if (!Game.rooms[i].memory.hasOwnProperty('directive')) {
                 Game.rooms[i].memory.directive = "grow";
@@ -53,17 +55,17 @@ var strategyBasic = {
 
 	for (const i in Game.creeps) {
 	    ra = Game.creeps[i].memory.room_assignment;
-	    Memory.roomList[ra].workers++;
+	    if(ra) { Memory.roomList[ra].workers++; }
 	}
 	
-        console.log("done strategy Basic");
+        debug("done strategy Basic");
     },
 
     assignRoom: function(c) {
 	for (const name in Memory.roomList) {
 	    var r = Memory.roomList[name];
 	    if (r.workers < r.sources * 3 || (!r.sources && r.workers < 1)) {
-		console.log("assignRoom", name);
+		debug("assignRoom", name);
 		Memory.roomList[name].workers++;
 		c.memory.room_assignment = name
 		break;
