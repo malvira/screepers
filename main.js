@@ -6,6 +6,9 @@ var spawner = require('spawner.basic');
 var commander = require('commander.basic');
 var utils = require('utils');
 
+if(!Memory.counters) { Memory.counters = {} };
+if(!Memory.counters.assigned_to_spawn) { Memory.counters.assigned_to_spawn = 0; }
+
 module.exports.loop = function () {
 
     // execute strategic things 

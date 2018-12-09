@@ -79,6 +79,14 @@ var strategyBasic = {
 	c.memory.room_assignment = c.room.name;
 	debug("assignRoom", c.room.name);
 	
+    },
+
+    assignHome: function(c) {
+	var i = Memory.counters.assigned_to_spawn++;
+	var num_spawns = Object.keys(Game.spawns).length;
+	var spawns = Object.keys(Game.spawns);
+	var s = spawns[i % num_spawns];
+	c.memory.room_home = Game.spawns[s].room.name;
     }
     
 };

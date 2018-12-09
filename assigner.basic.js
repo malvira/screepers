@@ -30,7 +30,11 @@ var assignerBasic = {
 	case 'full':
 
 	    // hardcode this room for now
-	    var r = Game.rooms[ROOM];
+	    // get our home room
+	    if (!c.memory.room_home) {
+		strategy.assignHome(c);
+	    }
+	    var r = Game.rooms[c.memory.room_home];
 	    
 	    debug(r.controller.ticksToDowngrade);
 	    
