@@ -53,8 +53,22 @@ var spawnerBasic = {
         // XXX todo, no sense of what type of creeps are in the room.
 	var workername = 'workerbee-' + Game.time;
         if (Object.keys(Game.creeps).length < Memory.workersWanted) {
-            debug("spawning workerbee");
-            s.spawnCreep([WORK, CARRY, MOVE], workername);
+            console.log("spawning workerbee");
+
+	    var e = s.room.energyAvailable;
+	    console.log("energy", e);
+	    
+	    if(e >= 550) {
+		console.log("making 550");
+		s.spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], workername);
+	    } else if (e >= 300) {
+		console.log("making 300");
+		s.spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], workername);
+	    } else if (e >= 200) {
+		console.log("making 200");
+		s.spawnCreep([WORK, CARRY, MOVE], workername);
+	    }
+	    
         }
       
     }
