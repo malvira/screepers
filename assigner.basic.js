@@ -77,7 +77,7 @@ var assignerBasic = {
 	    targets = r.find(FIND_STRUCTURES, {
 		filter: (s) => {
 		    return (s.structureType == STRUCTURE_TOWER &&
-			    s.energy < s. energyCapacity);
+			    s.energy < 1000);
 		}
 	    });
 	    if (targets.length != 0 ) {
