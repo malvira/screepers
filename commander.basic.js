@@ -13,6 +13,27 @@ var FORCE_ROOM_ASSIGNMENT = false;
 var commanderBasic = {
     run: function() {
 
+	// manage towers
+	for (const s in Game.spawns) {
+	    var r = Game.spawns[s].room;
+	    var towers = r.find(FIND_STRUCTURES, {
+		filter: (s) => {
+		    return (s.structureType == STRUCTURE_TOWER);
+		}
+	    });
+	    for (const t in towers) {
+		// attack enemies
+		// heal anything
+		// repair anything
+		var broken = t.room.find(FIND_STRUCTURES, {
+		    filter: (s) => {
+			return(s.hits != s.hitsMax);
+		    }
+		});
+		t.repair(broken[0]);
+	    }
+	}
+	
 	// manage the creeps
 
         for(var name in Memory.creeps) {

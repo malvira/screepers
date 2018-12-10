@@ -17,8 +17,25 @@ var assignerBasic = {
 	    
 	    var r = Game.rooms[c.memory.room_assignment];
 
+
 	    var sources = r.find(FIND_SOURCES);
-	    	    
+
+	    // dropped energy
+	    // bugged
+	    // sources += r.find(FIND_DROPPED_RESOURCES, {
+	    // 	filter: (r) => {
+	    // 	    return(r.resourceType == RESOURCE_ENERGY);
+	    // 	}
+	    // });
+
+	    // tombstones
+	    // more complicated
+	    // sources += r.fine(FIND_TOMBSTONES, {
+	    // 	filter: (t) => {
+	    // 	    return (t.);
+	    // 	}
+	    // });
+	    
 	    c.memory.task = 'harvest';
 	    // load balance between all of the sources in the assigned room
 	    c.memory.target = sources[Game.time % sources.length].id;
@@ -29,7 +46,6 @@ var assignerBasic = {
 	    
 	case 'full':
 
-	    // hardcode this room for now
 	    // get our home room
 	    if (!c.memory.room_home) {
 		strategy.assignHome(c);
@@ -44,7 +60,6 @@ var assignerBasic = {
 		break;
 	    }
 
-	    // XXX needs to be the creeps home room not harvest room.
 	    var targets = r.find(FIND_STRUCTURES, {
 		filter: (structure) => {
 	    	    return (structure.structureType == STRUCTURE_EXTENSION || 
@@ -52,13 +67,30 @@ var assignerBasic = {
 			structure.energy < structure.energyCapacity;
 		}
             });
-	    
+
+	    // storage
 	    if (targets.length != 0 ) {
 		c.memory.task = 'store';
 		c.memory.target = targets[0].id;
 		break;
 	    }
+
+	    // filling towers
+	    targets = r.find(FIND_STRUCTURES, {
+		filter: (s) => {
+		    return (s.structureType == STRUCTURE_TOWER &&
+			    s.energy < s. energyCapacity);
+		}
+	    });
+	    if (targets.length != 0 ) {
+		c.memory.task = 'store';
+		// XXX todo, fill most empty tower
+		c.memory.target = targets[0].id;
+		break;
+	    }
+
 	    
+	    // construction
 	    targets = r.find(FIND_CONSTRUCTION_SITES);
 
 	    if (targets.length != 0 ) {

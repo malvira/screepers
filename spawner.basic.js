@@ -57,8 +57,11 @@ var spawnerBasic = {
 
 	    var e = s.room.energyAvailable;
 	    console.log("energy", e);
-	    
-	    if(e >= 550) {
+
+	    if(e >= 800) {
+		console.log("making 800");
+		s.spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], workername);
+	    } else if(e >= 550) {
 		console.log("making 550");
 		s.spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], workername);
 	    } else if (e >= 300) {
