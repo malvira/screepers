@@ -53,10 +53,8 @@ var spawnerBasic = {
         // XXX todo, no sense of what type of creeps are in the room.
 	var workername = 'workerbee-' + Game.time;
         if (Object.keys(Game.creeps).length < Memory.workersWanted) {
-            console.log("spawning workerbee");
 
 	    var e = s.room.energyAvailable;
-	    console.log("energy", e);
 
 	    if(e >= 800) {
 		console.log("making 800");

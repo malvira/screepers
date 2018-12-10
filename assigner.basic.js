@@ -2,8 +2,6 @@
 
 var debug = require('debug').none;
 
-var ROOM = 'W2N5';
-
 var strategy = require('strategy.basic');
 
 var assignerBasic = {

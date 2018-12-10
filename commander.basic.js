@@ -21,16 +21,17 @@ var commanderBasic = {
 		    return (s.structureType == STRUCTURE_TOWER);
 		}
 	    });
+
 	    for (const t in towers) {
 		// attack enemies
 		// heal anything
 		// repair anything
-		var broken = t.room.find(FIND_STRUCTURES, {
+		var broken = towers[t].room.find(FIND_STRUCTURES, {
 		    filter: (s) => {
 			return(s.hits != s.hitsMax);
 		    }
 		});
-		t.repair(broken[0]);
+		towers[t].repair(broken[0]);
 	    }
 	}
 	

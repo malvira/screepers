@@ -28,7 +28,7 @@ var strategyBasic = {
 
 	// regen the rooms
 	Memory.roomList = {};
-	Memory.workersWanted = 0;
+	Memory.workersWanted = 1;
 
 	// find rooms from flags
 	for (const i in Game.flags) {
@@ -50,14 +50,14 @@ var strategyBasic = {
 	    if(!Memory.roomList[s.room.name]) { Memory.roomList[s.room.name] = { workers: 0 } };
 	    Memory.roomList[s.room.name].spawn = true;
 	    var r = Game.rooms[s.room.name];
-	    sources = r.find(FIND_SOURCES);
+	    var sources = r.find(FIND_SOURCES);
 	    Memory.roomList[s.room.name].sources = sources.length;
 	    Memory.workersWanted += sources.length * 3;
 	}
 
 	// find any room assignments from creeps
 	for (const i in Game.creeps) {
-	    ra = Game.creeps[i].memory.room_assignment;
+	    var ra = Game.creeps[i].memory.room_assignment;
 	    if(!Memory.roomList[ra]) { return; }
 	    if(ra) { Memory.roomList[ra].workers++; }
 	}
